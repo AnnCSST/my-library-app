@@ -4,5 +4,5 @@ export class Transaccion {
         public tipo: "Venta" | "agregarStock",
         public fecha: Date,
         public cantidad: number
-    ) {}
+    ) { }
 }

@@ -1,4 +1,3 @@
-// Importar clase Libro
 import { Libro } from "./libro";
 
 export class Tienda {
@@ -42,7 +41,6 @@ export class Tienda {
         return this.dineroEnCaja;
     }
 
-    // Método para obtener el catálogo de libros
     public obtenerCatalogo(): Libro[] {
         return Array.from(this.libros.values());
     }
