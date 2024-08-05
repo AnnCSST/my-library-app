@@ -1,6 +1,8 @@
+// Main 
 import * as readline from 'node:readline';
 import { Tienda } from "./tienda";
 import { Libro } from "./libro";
+import { Transaccion } from './transaccion';
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -16,7 +18,8 @@ function mostrarMenu() {
     console.log("3. Vender libro");
     console.log("4. Ver catálogo");
     console.log("5. Ver dinero en caja");
-    console.log("6. Salir");
+    console.log("6. Ver transacciones de un libro");
+    console.log("7. Salir");
     rl.question("Elija una opción: ", (opcion) => {
         manejarOpcion(opcion);
     });
@@ -40,6 +43,9 @@ function manejarOpcion(opcion: string) {
             verDineroEnCaja();
             break;
         case "6":
+            verTransaccionesDeLibro();
+            break;
+        case "7":
             console.log("Saliendo....");
             rl.close();
             break;
@@ -123,4 +129,29 @@ function verDineroEnCaja() {
 }
 
 mostrarMenu();
+
+function verTransaccionesDeLibro() {
+    rl.question("Ingrese el ISBN del libro para ver las transacciones: ", (isbn) => {
+        try {
+            const transacciones = tienda.obtenerTransaccionesDeLibro(isbn);
+            if (transacciones.length === 0) {
+                console.log("No hay transacciones para este libro.");
+            } else {
+                console.log("Transacciones del libro:");
+                transacciones.forEach(transaccion => {
+                    console.log(`Tipo: ${transaccion.tipo}, Fecha: ${transaccion.fecha.toISOString()}, Cantidad: ${transaccion.cantidad}`);
+                });
+            }
+        } catch (error) {
+            if (error instanceof Error) {
+                console.log(error.message);
+            } else {
+                console.log('Error desconocido:', error);
+            }
+        }
+        mostrarMenu();
+    });
+}
+
+
 

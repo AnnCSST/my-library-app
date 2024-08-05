@@ -18,7 +18,7 @@ export class Libro {
       throw new Error("La cantidad debe ser positiva.");
     }
     this.cantidadActual += cantidad;
-    this.transacciones.push(new Transaccion('agregarStock', new Date(), cantidad));
+    this.transacciones.push(new Transaccion('Agregar Stock', new Date(), cantidad));
   }
 
   public vender(cantidad: number): void {
@@ -32,7 +32,8 @@ export class Libro {
     this.transacciones.push(new Transaccion('Venta', new Date(), cantidad));
   }
 
-  public obtenerCantidadActual(): number {
-    return this.cantidadActual;
+  public obtenerTransacciones(): Transaccion[] {
+    return this.transacciones;
   }
 }
+

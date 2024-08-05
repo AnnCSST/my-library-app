@@ -1,4 +1,5 @@
 import { Libro } from "./libro";
+import { Transaccion } from "./transaccion";
 
 export class Tienda {
     private libros: Map<string, Libro> = new Map<string, Libro>();
@@ -43,5 +44,13 @@ export class Tienda {
 
     public obtenerCatalogo(): Libro[] {
         return Array.from(this.libros.values());
+    }
+
+    public obtenerTransaccionesDeLibro(isbn: string): Transaccion [] {
+        const libro = this.buscarLibro(isbn);
+        if (!libro) {
+            throw new Error("El libro no existe");
+        }
+        return libro.obtenerTransacciones();
     }
 }
